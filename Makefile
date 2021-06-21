@@ -9,16 +9,15 @@
 #    Updated: 2021/04/26 13:02:16 by kgale            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
-#-I includes/cub3d.h -I includes/libft.h
-#-Wno-unused-result
-NAME = cub3D
+
+NAME = minishell
 CC = gcc
-FLAGS = -Wno-unused-result #-Wall -Wextra -Werror=unused-result
+FLAGS = #-Wall -Wextra -Werror
 LIB = -L libft
-OPTION_LIB =-lft
+OPTION_LIB = -lft -lreadline
 OPTION = -c
 LIBFT = make -C libft
-SRCS =	main.c
+SRCS =	main.c line_parse.c
 
 OBJS_SRCS = ${SRCS:.c=.o}
 

@@ -46,7 +46,7 @@ int	ft_read_fd(char **dst, const int fd, t_buff *elem)
 		if (!*dst)
 			return (-1);
 		ft_empty(&flag, &dest);
-		if (buff[0] == '\0')
+		if (buff[0] == '\0' || buff[0] == '\n')
 			flag = 1;
 		if (flag != 1)
 			result = read(fd, buff, 1);
