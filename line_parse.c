@@ -12,13 +12,24 @@
 
 #include "includes/minishell.h"
 
+int ft_find(char *line1, char *line2)
+{
+	int i;
+
+	i = 0;
+	while (line2[i])
+	{
+		if (line1[i] )
+	}
+}
 void	line_parser(char *line, char *envp[])
 {
-	while (*line == ' ')
+	while (*line && *line == ' ')
 		line++;
-	if (ft_strncmp(line, "exit", 4) == 0)
-		exit (0);
-	if (ft_strncmp(line, "env", 3) == 0)
-		while (*envp)
-			printf("%s\n", *envp++);
+
+//	if (ft_strncmp(line, "exit", 4) == 0)
+//		exit(0);if (ft_strncmp(line, "env", 3) == 0)
+//	while (*envp)
+//		printf("%s\n", *envp++);
+//	}
 }

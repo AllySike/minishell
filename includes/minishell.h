@@ -5,15 +5,24 @@
 # include <termios.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <termcap.h>
 
 # define PROMPT "e-bash >"// "minishell > "
 
-typedef struct list
+// typedef struct list
+// {
+// 	int num;
+// 	int *ptr;
+// 	struct history * next;
+// }				history;
+
+typedef struct	s_minishell
 {
-	int num;
-	int *ptr;
-	struct history * next;
-}				history;
+	int		status;
+	char	**envp;
+	char    *line;
+	t_list	history;
+}				t_minishell;
 
 void	line_parser(char *line, char *envp[]);
 
