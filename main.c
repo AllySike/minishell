@@ -33,23 +33,27 @@ void	sigquit(int signo)
 	}
 }
 
-int main(int args, char *argv[], char *envp[])
+int main(int argc, char *argv[], char *envp[])
 {
 	t_minishell	shell;
 	int		gnl;
 	struct termios	termios_p;
 
-	signal(SIGINT, &sigint);
-	signal(SIGQUIT, &sigquit);
-	shell.status = 0;
-	tcgetattr(0, &termios_p);
-	shell.envp = envp;
-	shell.line = readline(PROMPT);
-	 while (shell.line && *shell.line)
-	 {
-	 	line_parser(shell.line, envp);
-	 	free(shell.line);
-	 	shell.line = readline(PROMPT);
-	 }
+	// signal(SIGINT, &sigint);
+	// signal(SIGQUIT, &sigquit);
+	// shell.status = 0;
+	// tcgetattr(0, &termios_p);
+	// shell.envp = envp;
+	// shell.line = readline(PROMPT);
+	//  while (shell.line && *shell.line)
+	//  {
+	 	// line_parser(shell.line, envp);
+	 	// free(shell.line);
+	 	// shell.line = readline(PROMPT);
+	//  }
+	if (argc != 1)
+		printf("");
+	else
+		{}
 	return (0);
 }
