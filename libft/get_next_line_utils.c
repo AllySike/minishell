@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "libft.h"
 
 int	my_strlen(const char *str)
 {
@@ -27,7 +27,7 @@ int	my_strlen(const char *str)
 	return (count);
 }
 
-void	ft_strlcpy(char **dst, const char *src, int siz, int index)
+void	ft_strl_cpy(char **dst, const char *src, int siz, int index)
 {
 	size_t	i;
 
@@ -44,31 +44,6 @@ void	ft_strlcpy(char **dst, const char *src, int siz, int index)
 		dst[0][i++] = '\0';
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
-{
-	int		len1;
-	int		len2;
-	int		index;
-	char	*output;
-
-	len1 = my_strlen(s1);
-	len2 = my_strlen(s2);
-	index = 0;
-	output = (char *)malloc(sizeof(char) * (len1 + len2 + 1));
-	if (!output)
-		return (NULL);
-	while (index++ < len1)
-		output[index - 1] = s1[index - 1];
-	index = 0;
-	while (index < len2)
-	{
-		output[index + len1] = s2[index];
-		index++;
-	}
-	output[len1 + len2] = '\0';
-	return (output);
-}
-
 t_buff	*ft_lstnw(char *content, t_buff *elem, int len, int fd)
 {
 	if (!content)
@@ -78,7 +53,7 @@ t_buff	*ft_lstnw(char *content, t_buff *elem, int len, int fd)
 		elem->end = 0;
 	}
 	else
-		ft_strlcpy(&(elem->content), content, len, 0);
+		ft_strl_cpy(&(elem->content), content, len, 0);
 	return (elem);
 }
 

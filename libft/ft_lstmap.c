@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "libft.h"
 
 static void	ft_helper(t_list *lst, void (*del)(void *),
 t_list	*new_lst)

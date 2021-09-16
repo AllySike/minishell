@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "libft.h"
 
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
@@ -32,4 +32,17 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 		i++;
 	}
 	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+}
+
+int	ft_strcmp(const char *s1, const char *s2)
+{
+	int	a;
+
+	while (*s1 && (*s1 == *s2))
+	{
+		s1++;
+		s2++;
+	}
+	a = *(const unsigned char *)s1 - *(const unsigned char *)s2;
+	return (a);
 }

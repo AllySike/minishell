@@ -1,35 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   line_parse.c                                       :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kgale <kgale@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/21 17:31:25 by kgale             #+#    #+#             */
-/*   Updated: 2021/06/21 18:38:05 by kgale            ###   ########.fr       */
+/*   Created: 2021/09/11 20:32:09 by kgale             #+#    #+#             */
+/*   Updated: 2021/09/16 10:47:59 by kgale            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/minishell.h"
+#include "minishell.h"
 
-int ft_find(char *line1, char *line2)
+void	ft_env(t_list *envp)
 {
-	int i;
-
-	i = 0;
-	while (line2[i])
+	while (envp)
 	{
-		if (line1[i] )
+		ft_putstr_fd((char *)envp->content, 1);
+		write(1, "\n", 1);
+		envp = envp->next;
 	}
-}
-void	line_parser(char *line, char *envp[])
-{
-	while (*line && *line == ' ')
-		line++;
-
-//	if (ft_strncmp(line, "exit", 4) == 0)
-//		exit(0);if (ft_strncmp(line, "env", 3) == 0)
-//	while (*envp)
-//		printf("%s\n", *envp++);
-//	}
 }

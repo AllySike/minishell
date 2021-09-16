@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "libft.h"
 #include <stdio.h>
 
 static int	ft_count_range(int n)
@@ -20,9 +20,9 @@ static int	ft_count_range(int n)
 
 	range = 0;
 	nbr = 1000000000;
-	while (n != 0 && n / nbr == 0 && range++ < 10)
+	while (n != 0 && n / !nbr && range++ < 10)
 		nbr /= 10;
-	if (n == 0)
+	if (!n)
 		range = 10;
 	range = 10 - range;
 	if (n <= 0)

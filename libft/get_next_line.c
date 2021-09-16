@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "libft.h"
 
 t_buff	*ft_find_fd_in_lst(t_buff **lst, int fd)
 {
@@ -46,12 +46,12 @@ int	ft_read_fd(char **dst, const int fd, t_buff *elem)
 		if (!*dst)
 			return (-1);
 		ft_empty(&flag, &dest);
-		if (buff[0] == '\0' || buff[0] == '\n')
+		if (buff[0] == '\0')
 			flag = 1;
 		if (flag != 1)
 			result = read(fd, buff, 1);
 	}
-	if (result == 0 && flag == 0)
+	if (!result && !flag)
 		elem->end = 1;
 	return (result);
 }
@@ -117,6 +117,6 @@ int	get_next_line(int fd, char **line)
 		return (0);
 	else
 		fd = 1;
-	ft_strlcpy(&(tmp), &(tmp[res + 1]), my_strlen(tmp) - res, 0);
+	ft_strl_cpy(&(tmp), &(tmp[res + 1]), my_strlen(tmp) - res, 0);
 	return (fd);
 }

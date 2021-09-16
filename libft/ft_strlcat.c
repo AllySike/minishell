@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "libft.h"
 
 size_t	ft_strlcat(char *dst, const char *src, size_t siz)
 {
@@ -28,4 +28,23 @@ size_t	ft_strlcat(char *dst, const char *src, size_t siz)
 	}
 	dst[i + j] = '\0';
 	return (i + ft_strlen(src));
+}
+
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
+{
+	size_t count_s;
+
+	count_s = 0;
+	if (!dst && !src)
+		return (0);
+	while (src[count_s] && count_s + 1 < dstsize)
+	{
+		dst[count_s] = src[count_s];
+		count_s++;
+	}
+	if (dstsize)
+		dst[count_s] = '\0';
+	while (src[count_s])
+		count_s++;
+	return (count_s);
 }

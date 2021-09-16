@@ -14,7 +14,7 @@ NAME = libft.a
 CC = gcc
 FLAGS = -Wall -Wextra -Werror
 HEADER = libft.h
-OPTION = -c -I $(HEADER)
+OPTION = -I ../includes
 SRCS_DIR = .
 SRCS =		$(SRCS_DIR)/ft_atoi.c	\
 			$(SRCS_DIR)/ft_bzero.c	\
@@ -25,6 +25,7 @@ SRCS =		$(SRCS_DIR)/ft_atoi.c	\
 			$(SRCS_DIR)/ft_isdigit.c	\
 			$(SRCS_DIR)/ft_isprint.c	\
 			$(SRCS_DIR)/ft_itoa.c	\
+			$(SRCS_DIR)/ft_lstadd_back.c \
 			$(SRCS_DIR)/ft_memccpy.c	\
 			$(SRCS_DIR)/ft_memcmp.c	\
 			$(SRCS_DIR)/ft_memchr.c	\
@@ -65,6 +66,9 @@ SRCS_BON =	$(SRCS_DIR)/ft_lstnew.c\
 			$(SRCS_DIR)/ft_lstmap.c
 
 OBJS_BON =	$(SRCS_BON:.c=.o)
+
+%.o: %.c
+	$(CC) $(FLAGS) ${OPTION} -c $<  -o $(<:.c=.o)
 
 all:		$(NAME)
 

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "libft.h"
 
 static int	ft_startcount(char const *s1, char const *set)
 {
@@ -32,7 +32,7 @@ static int	ft_startcount(char const *s1, char const *set)
 		while (i++ < len)
 			if (s1[index] == set[i - 1])
 				f = 1;
-		if (f == 0)
+		if (!f)
 			break ;
 		index++;
 	}
@@ -59,7 +59,7 @@ static int	ft_endcount(char const *s1, char const *set)
 		while (i++ < len)
 			if (s1[length - 1] == set[i - 1])
 				f = 1;
-		if (f == 0)
+		if (!f)
 			break ;
 		length--;
 	}
