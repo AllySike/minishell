@@ -6,7 +6,7 @@
 /*   By: kgale <kgale@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/11 20:32:20 by kgale             #+#    #+#             */
-/*   Updated: 2021/09/17 14:31:27 by kgale            ###   ########.fr       */
+/*   Updated: 2021/09/17 16:18:00 by kgale            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ void	pid_create(t_exec *exec, t_list **list_envp)
 			ft_echo(exec->func_args);
 		else if (!ft_strcmp(exec->func_args[0], "env"))
 			ft_env(*list_envp);
-		else if (ft_strcmp(exec->func_args[0], "cd"))
+		else
 			ft_exec(ft_lstarr(*list_envp), exec->func_args);
 		exit(0);
 	}
