@@ -1,93 +1,102 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   handle_symbols.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kgale <kgale@student.21-school.ru>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/09/17 14:29:46 by kgale             #+#    #+#             */
+/*   Updated: 2021/09/17 14:29:46 by kgale            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-static void	redir_operator(char *str, t_processor *processor)
+static void	redir_operator(char *str, t_line *line)
 {
-	if (processor->curr)
+	if (line->curr)
 	{
-		append_array(&processor->words_array, &processor->curr);
-		processor->curr = NULL;
+		append_array(&line->words_array, &line->curr);
+		line->curr = NULL;
 	}
-	processor->curr = append_arg(&processor->curr, '\n');
-	processor->curr = append_arg(&processor->curr, str[processor->i]);
-	processor->curr = append_arg(&processor->curr, str[processor->i + 1]);
-	processor->curr = append_arg(&processor->curr, '\n');
-	append_array(&processor->words_array, &processor->curr);
-	processor->curr = NULL;
-	processor->i++;
+	line->curr = append_arg(&line->curr, '\n');
+	line->curr = append_arg(&line->curr, str[line->i]);
+	line->curr = append_arg(&line->curr, str[line->i + 1]);
+	line->curr = append_arg(&line->curr, '\n');
+	append_array(&line->words_array, &line->curr);
+	line->curr = NULL;
+	line->i++;
 }
 
-static void	operators_utils(char *str, t_processor *processor)
+static void	operators_utils(char *str, t_line *line)
 {
-	if (str[processor->i] == '>' && str[processor->i + 1] == '>')
-		redir_operator(str, processor);
-	else if (str[processor->i] == '\'')
-		processor->sngl_qts = 1;
-	else if (str[processor->i] == '\"')
-		processor->dbl_qts = 1;
-	else if (str[processor->i] == '\\')
+	if (str[line->i] == '>' && str[line->i + 1] == '>')
+		redir_operator(str, line);
+	else if (str[line->i] == '\'')
+		line->sngl_qts = 1;
+	else if (str[line->i] == '\"')
+		line->dbl_qts = 1;
+	else if (str[line->i] == '\\')
 	{
-		processor->i++;
-		processor->curr = append_arg(&processor->curr, str[processor->i]);
+		line->i++;
+		line->curr = append_arg(&line->curr, str[line->i]);
 	}
-	else if (str[processor->i] == ' ')
+	else if (str[line->i] == ' ')
 	{
-		append_array(&processor->words_array, &processor->curr);
-		processor->curr = NULL;
+		append_array(&line->words_array, &line->curr);
+		line->curr = NULL;
 	}
 }
 
-
-static int	operators(char *str, t_processor *processor)
+static int	operators(char *str, t_line *line)
 {
-	if ((str[processor->i] == '>' && str[processor->i + 1] != '>')
-		|| str[processor->i] == '<' || str[processor->i] == '|'
-		|| str[processor->i] == ';')
+	if ((str[line->i] == '>' && str[line->i + 1] != '>')
+		|| str[line->i] == '<' || str[line->i] == '|'
+		|| str[line->i] == ';')
 	{
-		if (processor->curr)
+		if (line->curr)
 		{
-			append_array(&processor->words_array, &processor->curr);
-			processor->curr = NULL;
+			append_array(&line->words_array, &line->curr);
+			line->curr = NULL;
 		}
-		processor->curr = append_arg(&processor->curr, '\n');
-		processor->curr = append_arg(&processor->curr, str[processor->i]);
-		processor->curr = append_arg(&processor->curr, '\n');
-		append_array(&processor->words_array, &processor->curr);
-		processor->curr = NULL;
+		line->curr = append_arg(&line->curr, '\n');
+		line->curr = append_arg(&line->curr, str[line->i]);
+		line->curr = append_arg(&line->curr, '\n');
+		append_array(&line->words_array, &line->curr);
+		line->curr = NULL;
 		return (1);
 	}
-	else if ((str[processor->i] == '>' && str[processor->i + 1] == '>') ||
-			str[processor->i] == '\'' || str[processor->i] == '\"' ||
-			str[processor->i] == '\\' || str[processor->i] == ' ')
+	else if ((str[line->i] == '>' && str[line->i + 1] == '>')
+		|| str[line->i] == '\'' || str[line->i] == '\"'
+		|| str[line->i] == '\\' || str[line->i] == ' ')
 	{
-		operators_utils(str, processor);
+		operators_utils(str, line);
 		return (1);
 	}
 	return (0);
 }
 
-int	symb_handle(char *str, t_list *envp, int ret, t_processor *processor)
+int	symb_handle(char *str, t_list *envp, int ret, t_line *line)
 {
-	while (str[processor->i] == ' ' && !processor->curr)
-		processor->i++;
-	if (operators(str, processor))
+	while (str[line->i] == ' ' && !line->curr)
+		line->i++;
+	if (operators(str, line))
 		NULL;
-	else if (str[processor->i] == '$' && str[processor->i + 1] == '?')
+	else if (str[line->i] == '$' && str[line->i + 1] == '?')
 	{
-		processor->i += 2;
-		processor->tmp = processor->curr;
-		if (processor->curr)
-			processor->curr = ft_strjoin(processor->curr, ft_itoa(ret));
+		line->i += 2;
+		line->tmp = line->curr;
+		if (line->curr)
+			line->curr = ft_strjoin(line->curr, ft_itoa(ret));
 		else
-			processor->curr = ft_strdup(ft_itoa(ret));
-		if (processor->tmp)
-			free(processor->tmp);
+			line->curr = ft_strdup(ft_itoa(ret));
+		if (line->tmp)
+			free(line->tmp);
 		return (1);
 	}
-	else if (str[processor->i] == '$' && str[processor->i + 1])
-		return (handle_dollar(str, processor, envp));
+	else if (str[line->i] == '$' && str[line->i + 1])
+		return (handle_dollar(str, line, envp));
 	else
-		processor->curr =
-				append_arg(&processor->curr, str[processor->i]);
+		line->curr = append_arg(&line->curr, str[line->i]);
 	return (0);
 }
-

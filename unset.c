@@ -6,11 +6,30 @@
 /*   By: kgale <kgale@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/11 20:35:13 by kgale             #+#    #+#             */
-/*   Updated: 2021/09/16 12:03:16 by kgale            ###   ########.fr       */
+/*   Updated: 2021/09/17 14:02:41 by kgale            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static int	unset_utils(char ***value, t_list **p,
+t_list **q, char *array)
+{
+	free_array(value);
+	*value = ft_split((*p)->content, '=');
+	if (!ft_strcmp(array, (*value)[0]))
+	{
+		(*q)->next = (*p)->next;
+		free(*p);
+		return (1);
+	}
+	else
+	{
+		*q = *p;
+		*p = (*p)->next;
+		return (0);
+	}
+}
 
 void	ft_unset(t_list **head, char **array)
 {
@@ -32,24 +51,9 @@ void	ft_unset(t_list **head, char **array)
 			return ;
 		}
 		else
-		{
 			while (p)
-			{
-				free_array(&value);
-				value = ft_split((p)->content, '=');
-				if (!ft_strcmp(array[i], value[0]))
-				{
-					q->next = p->next;
-					free(p);
+				if (unset_utils(&value, &p, &q, array[i]))
 					break ;
-				}
-				else
-				{
-					q = p;
-					p = p->next;
-				}
-			}
-		}
 		free_array(&value);
 		i++;
 	}

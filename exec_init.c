@@ -1,23 +1,35 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exec_init.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kgale <kgale@student.21-school.ru>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/09/17 14:28:38 by kgale             #+#    #+#             */
+/*   Updated: 2021/09/17 14:28:38 by kgale            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 static int	process_syntax_errors(char **words)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (words[i])
 	{
 		if ((!ft_strcmp("\n|\n", words[i])
-			|| !ft_strcmp("\n;\n", words[i])
-			|| !ft_strcmp("\n>\n", words[i])
-			|| !ft_strcmp("\n<\n", words[i])
-			|| !ft_strcmp("\n>>\n", words[i]))
+				|| !ft_strcmp("\n;\n", words[i])
+				|| !ft_strcmp("\n>\n", words[i])
+				|| !ft_strcmp("\n<\n", words[i])
+				|| !ft_strcmp("\n>>\n", words[i]))
 			&& (!words[i + 1] || !i
-			|| (!ft_strcmp("\n|\n", words[i + 1])
-			|| !ft_strcmp("\n;\n", words[i + 1])
-			|| !ft_strcmp("\n<\n", words[i + 1])
-			|| !ft_strcmp("\n>\n", words[i + 1])
-			|| !ft_strcmp("\n>>\n", words[i + 1]))))
+				|| (!ft_strcmp("\n|\n", words[i + 1])
+					|| !ft_strcmp("\n;\n", words[i + 1])
+					|| !ft_strcmp("\n<\n", words[i + 1])
+					|| !ft_strcmp("\n>\n", words[i + 1])
+					|| !ft_strcmp("\n>>\n", words[i + 1]))))
 		{
 			write(2, "Syntax error near token: ", 26);
 			ft_putstr_fd(words[i] + 1, 2);
@@ -28,25 +40,25 @@ static int	process_syntax_errors(char **words)
 	return (1);
 }
 
-int		functions_count(char **argv)
+int	functions_count(char **argv)
 {
-	int i;
-	int nbr;
+	int	i;
+	int	nbr;
 
 	i = 0;
 	nbr = 1;
 	while (argv[i])
 	{
 		if ((!ft_strcmp(argv[i], "\n|\n")
-			|| !ft_strcmp(argv[i], "\n;\n"))
+				|| !ft_strcmp(argv[i], "\n;\n"))
 			&& argv[i + 1] && *argv[i + 1])
 		{
 			nbr++;
 		}
 		if ((!i || !ft_strcmp(argv[i - 1], "\n|\n")
-			|| !ft_strcmp(argv[i - 1], "\n;\n"))
+				|| !ft_strcmp(argv[i - 1], "\n;\n"))
 			&& (!ft_strcmp(argv[i], "\n>\n")
-			|| !ft_strcmp(argv[i], "\n<\n")))
+				|| !ft_strcmp(argv[i], "\n<\n")))
 			nbr--;
 		i++;
 	}
@@ -55,8 +67,9 @@ int		functions_count(char **argv)
 
 static void	check_fd(int i, char *argv)
 {
-	int fd;
-fd = i;
+	int	fd;
+
+	fd = i;
 	fd = open(argv, O_RDONLY, 0777);
 	if (fd == -1)
 	{
@@ -69,9 +82,9 @@ fd = i;
 
 static int	*get_func_start(t_exec *exec)
 {
-	int i;
-	int count;
-	int *res;
+	int	i;
+	int	count;
+	int	*res;
 
 	i = 0;
 	count = 0;

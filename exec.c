@@ -5,14 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: kgale <kgale@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/11 20:32:54 by kgale             #+#    #+#             */
-/*   Updated: 2021/09/16 11:57:10 by kgale            ###   ########.fr       */
+/*   Created: 2021/09/17 14:14:01 by kgale             #+#    #+#             */
+/*   Updated: 2021/09/17 14:31:55 by kgale            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int		redir_handle(t_all *all, t_exec *exec)
+static int	redir_handle(t_all *all, t_exec *exec)
 {
 	exec->words = process_inputs(all->command, all->envp, all->ret);
 	exec->wr_redir_case = redir_output(exec, exec->func_start[exec->i + 1] - 1);
@@ -20,7 +20,7 @@ static int		redir_handle(t_all *all, t_exec *exec)
 	if (exec->r_redir_case == -1)
 		return (0);
 	exec->func_args = get_fnct_args(exec,
-		exec->func_start[exec->i + 1] - 1);
+			exec->func_start[exec->i + 1] - 1);
 	return (1);
 }
 
@@ -44,7 +44,7 @@ static void	exec_free(t_exec *exec)
 		free(exec->writing_from_pipes);
 }
 
-static void	exec_wait(t_exec *exec, t_all *all)
+static void	exec_wait(t_exec *exec)
 {
 	if (exec->wr_redir)
 		free(exec->wr_redir);
@@ -54,7 +54,7 @@ static void	exec_wait(t_exec *exec, t_all *all)
 	exec->i++;
 }
 
-int		ft_exit(char **array)
+int	ft_exit(char **array)
 {
 	int				i;
 	unsigned char	res;
@@ -85,33 +85,8 @@ int		ft_exit(char **array)
 	return (res);
 }
 
-static void		ft_exit1(t_exec *exec, t_all *all)
-{ /*
-	int	i;
-
-	exec->ret = 0;
-	i = 0;
-	if (!exec->func_args[1])
-		exec->ret = 127;
-	while (exec->func_args[1][i])
-	{
-		if (!ft_isdigit(exec->func_args[1][i]))
-		{
-			write(2, " exit: numeric argument required\n", 34);
-			exec->ret = 255;
-			break ;
-		}
-		exec->ret = exec->ret * 10 + (exec->func_args[1][i] - '0');
-		i++;
-	}
-	if (exec->func_args[2])
-	{
-		write(2, " exit: too many arguments\n", 27);
-		exec->ret = -1;
-		all->ret = 1;
-	}
-	exit (exec->ret);
-	*/
+static void	ft_exit1(t_exec *exec, t_all *all)
+{
 	exec->ret = ft_exit(exec->func_args);
 	if (exec->ret == -1)
 	{
@@ -122,7 +97,7 @@ static void		ft_exit1(t_exec *exec, t_all *all)
 		exit(exec->ret);
 }
 
-void		exec(t_all *all)
+void	exec(t_all *all)
 {
 	t_exec exec;
 
@@ -147,7 +122,7 @@ void		exec(t_all *all)
 		else
 			pid_create(&exec, &(all->envp));
 		wait(&exec.wstatus);
-		exec_wait(&exec, all);
+		exec_wait(&exec);
 	}
 	exec_free(&exec);
 }

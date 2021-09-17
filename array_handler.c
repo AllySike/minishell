@@ -6,7 +6,7 @@
 /*   By: kgale <kgale@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/11 20:34:01 by kgale             #+#    #+#             */
-/*   Updated: 2021/09/16 10:57:43 by kgale            ###   ########.fr       */
+/*   Updated: 2021/09/17 14:11:20 by kgale            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ char	*append_arg(char **str, char c)
 	return (tmp);
 }
 
-static int		array_len(char **array)
+static int	array_len(char **array)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (array[i])
@@ -79,8 +79,8 @@ static char	**array_copy(char **array)
 
 void	append_array(char ***array, char **str)
 {
-	char **new_array;
-	char **old_array;
+	char	**new_array;
+	char	**old_array;
 	int		arr_len;
 
 	old_array = *array;

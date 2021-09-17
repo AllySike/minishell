@@ -6,7 +6,7 @@
 /*   By: kgale <kgale@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/11 20:33:15 by kgale             #+#    #+#             */
-/*   Updated: 2021/09/16 11:07:15 by kgale            ###   ########.fr       */
+/*   Updated: 2021/09/17 14:04:48 by kgale            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	terminal_setup(void)
 {
-	struct termios term;
+	struct termios	term;
 
 	tcgetattr(0, &term);
 	term.c_lflag &= ~(ECHO);
@@ -25,7 +25,7 @@ void	terminal_setup(void)
 	tputs(save_cursor, 1, ft_putchar);
 }
 
-static t_list *press_up_down_helper(t_all *all, int flag, int *cnt)
+static t_list	*press_up_down_helper(t_all *all, int flag, int *cnt)
 {
 	t_list	*hist;
 
@@ -98,9 +98,9 @@ void	input_management(t_all *all, int *cnt)
 		else if (all->line[0] >= 0 && all->line[0] <= 126)
 		{
 			write(1, all->line, all->read_bytes);
-			if (!ft_strcmp(all->line, "\n") ||
-				(!ft_strcmp(all->line, "\004")
-				&& !ft_strlen(all->command)))
+			if (!ft_strcmp(all->line, "\n")
+				|| (!ft_strcmp(all->line, "\004")
+					&& !ft_strlen(all->command)))
 				break ;
 			if (all->line[0] >= 32 && all->line[0] <= 126)
 				append_command(all);

@@ -6,7 +6,7 @@
 /*   By: kgale <kgale@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/11 20:32:20 by kgale             #+#    #+#             */
-/*   Updated: 2021/09/16 11:43:52 by kgale            ###   ########.fr       */
+/*   Updated: 2021/09/17 14:31:27 by kgale            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static void	ft_exec(char **env, char **array)
 	exit(127);
 }
 
-static void	dup2_redir_handle(t_exec *exec, t_list **list_envp)
+static void	dup2_redir_handle(t_exec *exec)
 {
 	if (exec->wr_redir_case == 1)
 	{
@@ -118,7 +118,7 @@ void	pid_create(t_exec *exec, t_list **list_envp)
 	if (exec->pid == 0)
 	{
 		dup2_redir(exec);
-		dup2_redir_handle(exec, list_envp);
+		dup2_redir_handle(exec);
 		if (!ft_strcmp(exec->func_args[0], "pwd"))
 			ft_pwd(exec->func_args);
 		else if (!ft_strcmp(exec->func_args[0], "export"))

@@ -12,7 +12,7 @@
 
 NAME = minishell
 CC = gcc
-FLAGS = #-Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror
 LIB = libft/libft.a
 LIBFT = make bonus -C libft
 SRCS =  array_handler.c \
@@ -47,7 +47,7 @@ all: $(NAME)
 
 $(NAME) : $(OBJS_SRCS)
 		@$(LIBFT)
-		$(CC) -o $(NAME) $(OBJS_SRCS) $(LIB) $(INCLUDE) -ltermcap
+		@$(CC) -o $(NAME) $(OBJS_SRCS) $(LIB) $(INCLUDE) -ltermcap
 
 clean:
 		@rm -f $(OBJS_SRCS)

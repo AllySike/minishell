@@ -6,7 +6,7 @@
 /*   By: kgale <kgale@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/11 20:34:12 by kgale             #+#    #+#             */
-/*   Updated: 2021/09/15 15:34:57 by kgale            ###   ########.fr       */
+/*   Updated: 2021/09/17 14:15:27 by kgale            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	redir_output_utils(char **dir)
 {
-	int fd;
+	int	fd;
 
 	fd = open(*dir, O_WRONLY | O_APPEND | O_CREAT, 0777);
 	close(fd);
@@ -22,10 +22,10 @@ static void	redir_output_utils(char **dir)
 	*dir = NULL;
 }
 
-int		redir_output(t_exec *exec, int finish)
+int	redir_output(t_exec *exec, int finish)
 {
-	int i;
-	int nbr;
+	int	i;
+	int	nbr;
 
 	i = exec->func_start[exec->i];
 	nbr = 0;
@@ -51,9 +51,9 @@ int		redir_output(t_exec *exec, int finish)
 	return (nbr);
 }
 
-static int		redir_input_utils(char **dir)
+static int	redir_input_utils(char **dir)
 {
-	int fd;
+	int	fd;
 
 	fd = open(*dir, O_RDONLY, 0777);
 	if (fd == -1)
@@ -68,10 +68,10 @@ static int		redir_input_utils(char **dir)
 	return (0);
 }
 
-int		redir_input(t_exec *exec, int finish)
+int	redir_input(t_exec *exec, int finish)
 {
-	int i;
-	int nbr;
+	int	i;
+	int	nbr;
 
 	i = exec->func_start[exec->i];
 	nbr = 0;

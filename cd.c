@@ -6,61 +6,61 @@
 /*   By: kgale <kgale@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/11 20:31:39 by kgale             #+#    #+#             */
-/*   Updated: 2021/09/16 12:00:38 by kgale            ###   ########.fr       */
+/*   Updated: 2021/09/17 14:09:49 by kgale            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_add_pwd(t_list **head, char *dir)
+static void	ft_add_pwd(t_list **head, char *dir)
 {
 	t_list	*envp;
-	char	**var1;
+	char	**var;
 
 	envp = *head;
-	var1 = NULL;
+	var = NULL;
 	while (envp)
 	{
-		var1 = ft_split(envp->content, '=');
-		if (!ft_strcmp("PWD", var1[0]))
+		var = ft_split(envp->content, '=');
+		if (!ft_strcmp("PWD", var[0]))
 		{
 			free(envp->content);
-			free_array(&var1);
+			free_array(&var);
 			envp->content = ft_strjoin("PWD=", dir);
 			return ;
 		}
-		free_array(&var1);
+		free_array(&var);
 		envp = envp->next;
 	}
 }
 
-void	ft_add_old_pwd(t_list **head, char *dir)
+static void	ft_add_old_pwd(t_list **head, char *dir)
 {
 	t_list	*envp;
-	char	**var1;
+	char	**var;
 	char	*tmp;
 
 	envp = *head;
-	var1 = NULL;
+	var = NULL;
 	while (envp)
 	{
-		var1 = ft_split(envp->content, '=');
-		if (!ft_strcmp("OLDPWD", var1[0]))
+		var = ft_split(envp->content, '=');
+		if (!ft_strcmp("OLDPWD", var[0]))
 		{
 			tmp = envp->content;
 			envp->content = ft_strjoin("OLDPWD=", dir);
 			if (tmp)
 				free(tmp);
-			free_array(&var1);
+			free_array(&var);
 			return ;
 		}
-		free_array(&var1);
+		free_array(&var);
 		envp = envp->next;
 	}
 	ft_lstadd_back(head, ft_lstnew(ft_strjoin("OLDPWD=", dir)));
 }
 
-void	ft_chdir_help(char **array, char *dir, char *search, t_list **head)
+static void	ft_chdir_help(char **array, char *dir, char *search, t_list **head)
 {
 	int		i;
 
@@ -69,7 +69,7 @@ void	ft_chdir_help(char **array, char *dir, char *search, t_list **head)
 		i++;
 	if (i > 2)
 	{
-		ft_putstr_fd("cd: too many arguments\n", 2);
+		write(2, "cd: too many arguments\n", 24);
 		free(search);
 		return ;
 	}
@@ -84,11 +84,12 @@ void	ft_chdir_help(char **array, char *dir, char *search, t_list **head)
 	else
 	{
 		ft_putstr_fd(search, 2);
-		ft_putstr_fd(": cd: no such file or directory\n", 2);
+		write(2, ": cd: no such file or directory\n", 33);
 	}
 	free(search);
 }
-char	*find_home(t_list **head)
+
+static char	*find_home(t_list **head)
 {
 	t_list	*envp;
 	char	**var1;
@@ -111,7 +112,6 @@ char	*find_home(t_list **head)
 	return (NULL);
 }
 
-
 void	ft_chdir(char **array, t_list **head)
 {
 	char	*search;
@@ -125,7 +125,7 @@ void	ft_chdir(char **array, t_list **head)
 		search = find_home(head);
 		if (!search)
 		{
-			ft_putstr_fd(" cd: HOME not set\n", 2);
+			write(2, " cd: HOME not set\n", 19);
 			free(search);
 			return ;
 		}

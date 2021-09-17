@@ -6,7 +6,7 @@
 /*   By: kgale <kgale@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/11 20:32:31 by kgale             #+#    #+#             */
-/*   Updated: 2021/09/16 10:23:51 by kgale            ###   ########.fr       */
+/*   Updated: 2021/09/17 14:25:35 by kgale            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ static void	ft_export_utils(t_list **envp, char *array)
 {
 	char	**var1;
 	char	**var;
-
 
 	var = ft_split(array, '=');
 	while (*envp)

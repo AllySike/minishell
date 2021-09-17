@@ -6,13 +6,13 @@
 /*   By: kgale <kgale@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/11 20:33:08 by kgale             #+#    #+#             */
-/*   Updated: 2021/09/12 01:42:48 by kgale            ###   ########.fr       */
+/*   Updated: 2021/09/17 14:23:22 by kgale            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void init(char **buff, int *i, char **res)
+static void	init(char **buff, int *i, char **res)
 {
 	*res = NULL;
 	*buff = (char *)malloc(4000);
@@ -20,7 +20,7 @@ static void init(char **buff, int *i, char **res)
 	*i = 1;
 }
 
-static int read_buff(char **res, char **buff, char **str)
+static int	read_buff(char **res, char **buff, char **str)
 {
 	int	n;
 
@@ -65,7 +65,7 @@ static void	clear_all(char **str, char **res, char **buff)
 		free(*res);
 }
 
-int		get_line(char **str)
+int	get_line(char **str)
 {
 	int		n;
 	int		i;

@@ -6,7 +6,7 @@
 /*   By: kgale <kgale@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/11 20:33:31 by kgale             #+#    #+#             */
-/*   Updated: 2021/09/16 11:35:45 by kgale            ###   ########.fr       */
+/*   Updated: 2021/09/17 14:15:57 by kgale            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	handle(int sig)
 
 static void	ft_init_all(t_all *all, char **envp)
 {
-	int		i;
+	int	i;
 
 	i = 0;
 	all->envp = ft_lstnew(ft_strdup(envp[i]));
@@ -84,9 +84,9 @@ static void	launch(t_all *all)
 	}
 }
 
-int		main(int argc, char **argv, char **envp)
+int	main(int argc, char **argv, char **envp)
 {
-	t_all			all;
+	t_all	all;
 
 	(void)argv;
 	if (argc > 1)
